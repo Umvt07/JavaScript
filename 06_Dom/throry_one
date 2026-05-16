@@ -1,0 +1,33 @@
+Dom-> Document object model 
+so these documets are made up of object
+console.log(window);
+console.log(window.document)// console.log(document) both are correct
+but to get all features of document
+console.dir(document);
+
+    do diagram
+        Window
+          |
+        Document
+            |
+        HTML
+        
+    now html is divided into two parts head and body
+
+    now head is further divided into two parts title and meta tag
+    now title-> text node
+
+    now body includes div after that div includes attribute h1 and paragraph
+
+    and now h1 includes attribute and text node
+    and paragraph include text node
+
+    make diagram on notebook for the understanding
+
+    html collections
+    consolt.log(documents.link) // gives the link of all websites
+    console.log(doment.link[2])// gives second link of the website among all
+
+    in inspect we can getelementbyid by that console.log() you get that id and could change the id 
+    document.getElementById('firstHeading').innerHTML="<h1>adarshsharma<h1/>"
+    so the data coild be changed
