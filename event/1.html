@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>htnml Events </title>
+</head>
+<body style="background-color: #414141; color: aliceblue;">
+    <h2>Amazing image</h2>
+    <div >
+        <ul id="images">
+            <li><img width="200px" id="photoshop" src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="photoshop"></li>
+            <li><img width="200px" id="japan" src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="river" src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="owl" src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="" /*onclick="alert('owl')"*/ ></li>
+            <li><img width="200px" id="prayer" src="https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><a style="color: aliceblue;" href="https://google.com" id="google">Google</a></li>
+        </ul>
+   </div>
+</body>
+<script>
+    // most of the event in js run sequentially 
+     // some exception in asynchornous programming
+    //  document.getElementById('owl').onclick=function(){
+    //     alert("owl click");
+    //  }
+
+    // these approach are not good we should use eventListner as it gives us the ability of propogation
+     //attachEvent()
+    // jQuery-on
+
+    // what to study in event from this ocean
+    //types,timestamp,defaultPrevented,
+    // target,toElement,srcElement,currentTarget
+    // clientX,clientY,screenX,screenY
+    // alykey,ctrlkey,shiftKey,keycode,
+    // document.querySelector('#owl').addEventListener('click',(e)=>{
+    //     console.log(e); 
+    //     // events are mostly of browser or environment like where the mouse has clicked,etc,etc
+
+    //     // alert("owl0");
+    // },false)
+    // // event Bubbling->false; when we want to propogate the event from bottom to top like here first child one will execute then the parent one
+    // event Capturing->true// when we want to propogate from top to bottom like first parent class/id will execute then child
+
+    // now in false to prevent bubbling from parent->child we use stopPropagation method so things would not go to parent class
+
+    // document.querySelector('#google').addEventListener('click',function(e){
+    //     console.log("google clicked");
+    //     e.preventDefault();
+    //     console.log("Google clicked");
+    // })
+    // now task is whenever i click any image it must disappear
+    document.querySelector('#images').addEventListener('click',(e)=>{
+        console.log("target =", e.target.id);
+        console.log("currentTarget =", e.currentTarget.id);
+        console.log(e.target.parentNode);
+        let removeit=e.target.parentNode;// so this is the way if we directly remove e.target then bullet point will stay
+        console.log(e.target.tagName)
+        if(e.target.tagName=='IMG'){
+            removeit.remove();
+        }
+    },false)
+    // if(e.target.tagName=='IMG'){
+        //     removeit.parentNode.removeChild(removeit);
+        // }
+</script>
+</html>
+/*
+========================
+JAVASCRIPT EVENT OBJECT
+========================
+
+Whenever an event happens (click, keypress, submit, etc.)
+the browser creates an EVENT OBJECT.
+
+Example:
+
+document.addEventListener('click', function(e){
+    console.log(e);
+});
+
+Here:
+e = event object
+
+--------------------------------------------------
+1. type
+--------------------------------------------------
+
+Tells which event happened.
+
+Example:
+e.type
+
+Output:
+"click"
+"keydown"
+"submit"
+
+--------------------------------------------------
+2. timeStamp
+--------------------------------------------------
+
+Time when the event occurred.
+
+Example:
+e.timeStamp
+
+Output:
+2456.7
+
+(milliseconds since page load)
+
+--------------------------------------------------
+3. defaultPrevented
+--------------------------------------------------
+
+Checks whether preventDefault() was used.
+
+Example:
+
+form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    console.log(e.defaultPrevented);
+});
+
+Output:
+true
+
+--------------------------------------------------
+4. target
+--------------------------------------------------
+
+The ACTUAL element on which event happened.
+
+Example:
+
+<button id="btn">Click</button>
+
+document.getElementById('btn').addEventListener('click', function(e){
+    console.log(e.target);
+});
+
+Output:
+<button id="btn">Click</button>
+
+Very important property.
+
+--------------------------------------------------
+5. currentTarget
+--------------------------------------------------
+
+The element whose listener is currently running.
+
+Example:
+
+<div id="parent">
+    <button id="child">Click</button>
+</div>
+
+document.getElementById('parent').addEventListener('click', function(e){
+
+    console.log(e.target.id);
+    console.log(e.currentTarget.id);
+
+});
+
+If button clicked:
+
+target = child
+currentTarget = parent
+
+Difference:
+
+target
+-> where event actually happened
+
+currentTarget
+-> where listener is attached
+
+--------------------------------------------------
+6. srcElement
+--------------------------------------------------
+
+Old Internet Explorer version of target.
+
+Use:
+e.target
+
+instead of:
+e.srcElement
+
+--------------------------------------------------
+7. toElement
+--------------------------------------------------
+
+Used in old mouse events.
+
+Represents element mouse moved into.
+
+Rarely used today.
+
+Modern alternative:
+relatedTarget
+
+--------------------------------------------------
+8. clientX and clientY
+--------------------------------------------------
+
+Mouse position relative to browser window.
+
+Example:
+
+document.addEventListener('click', function(e){
+
+    console.log(e.clientX);
+    console.log(e.clientY);
+
+});
+
+Output:
+320
+180
+
+Meaning:
+320px from left
+180px from top
+
+--------------------------------------------------
+9. screenX and screenY
+--------------------------------------------------
+
+Mouse position relative to entire computer screen.
+
+Example:
+e.screenX
+e.screenY
+
+Difference:
+
+clientX/Y
+-> browser window coordinates
+
+screenX/Y
+-> monitor screen coordinates
+
+--------------------------------------------------
+10. altKey
+--------------------------------------------------
+
+Checks whether ALT key was pressed.
+
+Example:
+
+document.addEventListener('click', function(e){
+
+    console.log(e.altKey);
+
+});
+
+Output:
+true / false
+
+--------------------------------------------------
+11. ctrlKey
+--------------------------------------------------
+
+Checks whether CTRL key pressed.
+
+Example:
+e.ctrlKey
+
+Useful for shortcuts.
+
+--------------------------------------------------
+12. shiftKey
+--------------------------------------------------
+
+Checks whether SHIFT key pressed.
+
+Example:
+e.shiftKey
+
+--------------------------------------------------
+13. keyCode
+--------------------------------------------------
+
+Numeric code of pressed key.
+
+Example:
+
+document.addEventListener('keydown', function(e){
+
+    console.log(e.keyCode);
+
+});
+
+Enter -> 13
+A -> 65
+
+Deprecated now.
+
+Modern way:
+e.key
+
+Example:
+
+document.addEventListener('keydown', function(e){
+
+    console.log(e.key);
+
+});
+
+Outputs:
+"Enter"
+"a"
+"ArrowUp"
+
+--------------------------------------------------
+MOST IMPORTANT PROPERTIES
+--------------------------------------------------
+
+e.target
+-> which element clicked
+
+e.currentTarget
+-> where listener attached
+
+e.preventDefault()
+-> stop default browser action
+
+e.clientX / e.clientY
+-> mouse position
+
+e.key
+-> keyboard key
+
+e.ctrlKey / e.shiftKey
+-> shortcut detection
+
+--------------------------------------------------
+REAL EXAMPLE
+--------------------------------------------------
+
+<button id="btn">Click Me</button>
+
+document.getElementById('btn').addEventListener('click', function(e){
+
+    console.log("Type:", e.type);
+
+    console.log("Target:", e.target);
+
+    console.log("X:", e.clientX);
+
+    console.log("Y:", e.clientY);
+
+    console.log("Ctrl pressed:", e.ctrlKey);
+
+});
+
+--------------------------------------------------
+SHORTCUT EXAMPLE
+--------------------------------------------------
+
+document.addEventListener('keydown', function(e){
+
+    if(e.ctrlKey && e.key === 's'){
+
+        e.preventDefault();
+
+        console.log("Save shortcut pressed");
+    }
+
+});
+
+Detects:
+CTRL + S
+
+--------------------------------------------------
+IMPORTANT NOTE
+--------------------------------------------------
+
+Different events have different properties.
+
+Mouse events:
+clientX, clientY
+
+Keyboard events:
+key, keyCode
+
+Submit events:
+form related properties
+
+So every property does NOT exist in every event.
+
+*/

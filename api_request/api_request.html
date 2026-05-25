@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: black;">
+    <!-- Value	State	Description
+0	UNSENT	Client has been created. open() not called yet.
+1	OPENED	open() has been called.
+2	HEADERS_RECEIVED	send() has been- called, and headers and status are available.
+3	LOADING	Downloading; responseText holds partial data.
+4	DONE	The operation is complete. -->
+</body>
+<script>
+   const xhr = new XMLHttpRequest();
+
+    const url = "https://api.github.com/users/hiteshchoudhary";
+
+xhr.open('GET', url);
+
+xhr.onreadystatechange = function () {
+
+    console.log(xhr.readyState);
+
+    if (xhr.readyState === 4) {
+
+        const data = JSON.parse(this.responseText);
+
+        console.log(data);
+
+        const img = data.avatar_url;
+        const followers = data.followers;
+
+        // Create Image
+        const image = document.createElement('img');
+
+        image.className = "photo";
+
+        image.src = img;
+
+        document.body.appendChild(image);
+
+        // Create Followers Text
+        const fo = document.createElement('p');
+
+        fo.innerHTML = `Followers count is ${followers}`;
+
+        document.body.appendChild(fo);
+        document.querySelector('p').style.color="white";
+
+    }
+
+}
+
+xhr.send();
+
+
+
+
+
+// # XMLHttpRequest (XHR) ReadyState Notes
+
+// `readyState` tells us the current state of an XMLHttpRequest.
+
+// Syntax:
+
+// ```js
+// xhr.readyState
+// ```
+
+// ---
+
+// # Total 5 States
+
+// | Value | State Name | Meaning |
+// |---|---|---|
+// | 0 | UNSENT | Request object created |
+// | 1 | OPENED | open() called |
+// | 2 | HEADERS_RECEIVED | Response headers received |
+// | 3 | LOADING | Response body downloading |
+// | 4 | DONE | Request completed |
+
+// ---
+
+// # Full Example
+
+// ```js
+// const xhr = new XMLHttpRequest();
+
+// xhr.onreadystatechange = function(){
+
+//     console.log(xhr.readyState);
+
+// }
+
+// xhr.open("GET","https://api.github.com/users");
+
+// xhr.send();
+// ```
+
+// Possible Output:
+
+// ```txt
+// 1
+// 2
+// 3
+// 4
+// ```
+
+// ---
+
+// # STATE 0 → UNSENT
+
+// ```js
+// const xhr = new XMLHttpRequest();
+// ```
+
+// Current State:
+
+// ```js
+// xhr.readyState === 0
+// ```
+
+// Meaning:
+// - Object created
+// - Request not initialized
+// - No URL
+// - No method
+
+// Visual:
+
+// ```txt
+// XHR object created only
+// ```
+
+// ---
+
+// # STATE 1 → OPENED
+
+// After:
+
+// ```js
+// xhr.open("GET","https://api.com");
+// ```
+
+// Current State:
+
+// ```js
+// xhr.readyState === 1
+// ```
+
+// Meaning:
+// - Request configured
+// - Method known
+// - URL known
+// - Request NOT sent yet
+
+// Visual:
+
+// ```txt
+// Request prepared
+// Ready to send
+// ```
+
+// ---
+
+// # STATE 2 → HEADERS_RECEIVED
+
+// After:
+
+// ```js
+// xhr.send();
+// ```
+
+// and server starts responding.
+
+// Current State:
+
+// ```js
+// xhr.readyState === 2
+// ```
+
+// Meaning:
+// - Response headers received
+// - Status code available
+
+// Example Headers:
+
+// ```txt
+// Content-Type
+// Content-Length
+// Status
+// ```
+
+// Visual:
+
+// ```txt
+// Server accepted request
+// ```
+
+// ---
+
+// # STATE 3 → LOADING
+
+// Current State:
+
+// ```js
+// xhr.readyState === 3
+// ```
+
+// Meaning:
+// - Response body downloading
+// - Partial data may be available
+
+// Visual:
+
+// ```txt
+// Downloading data...
+// ```
+
+// ---
+
+// # STATE 4 → DONE
+
+// Current State:
+
+// ```js
+// xhr.readyState === 4
+// ```
+
+// Meaning:
+// - Request completed
+// - Full response available
+
+// Now we can safely use:
+
+// ```js
+// xhr.responseText
+// ```
+
+// Visual:
+
+// ```txt
+// Download complete
+// ```
+
+// ---
+
+// # Important Condition
+
+// ```js
+// if(xhr.readyState === 4 && xhr.status === 200){
+
+//     console.log(xhr.responseText);
+
+// }
+// ```
+
+// ---
+
+// # Why Check status === 200 ?
+
+// Because:
+
+// ```txt
+// readyState = 4
+// ```
+
+// only means:
+
+// ```txt
+// Request finished
+// ```
+
+// NOT necessarily successful.
+
+// Examples:
+
+// | Status | Meaning |
+// |---|---|
+// | 200 | Success |
+// | 404 | Not Found |
+// | 500 | Server Error |
+
+// ---
+
+// # responseText
+
+// Contains response as STRING.
+
+// Example:
+
+// ```js
+// console.log(xhr.responseText);
+// ```
+
+// Possible Output:
+
+// ```txt
+// '{"name":"Adarsh"}'
+// ```
+
+// ---
+
+// # JSON.parse()
+
+// Convert string into object.
+
+// ```js
+// const data = JSON.parse(xhr.responseText);
+
+// console.log(data.name);
+// ```
+
+// ---
+
+// # Full Working Example
+
+// ```js
+// const xhr = new XMLHttpRequest();
+
+// xhr.open("GET","https://jsonplaceholder.typicode.com/users");
+
+// xhr.send();
+
+// xhr.onreadystatechange = function(){
+
+//     if(xhr.readyState === 4 && xhr.status === 200){
+
+//         const data = JSON.parse(xhr.responseText);
+
+//         console.log(data);
+
+//     }
+
+// }
+// ```
+
+// ---
+
+// # Complete Flow
+
+// ```txt
+// new XMLHttpRequest()
+//           ↓
+// readyState = 0
+
+// xhr.open()
+//           ↓
+// readyState = 1
+
+// xhr.send()
+//           ↓
+// Headers received
+//           ↓
+// readyState = 2
+
+// Downloading response
+//           ↓
+// readyState = 3
+
+// Download complete
+//           ↓
+// readyState = 4
+// ```
+
+// ---
+
+// # Real Life Analogy
+
+// | State | Real Meaning |
+// |---|---|
+// | 0 | Opened food app |
+// | 1 | Selected order |
+// | 2 | Restaurant accepted |
+// | 3 | Delivery coming |
+// | 4 | Food delivered |
+
+// ---
+
+// # Important Points
+
+// ## XHR is asynchronous
+
+// JavaScript does NOT wait.
+
+// ---
+
+// ## readyState tracks request lifecycle
+
+// It changes from:
+
+// ```txt
+// 0 → 1 → 2 → 3 → 4
+// ```
+
+// ---
+
+// ## State 4 is most important
+
+// Because response fully arrives there.
+
+// ---
+
+// # One-Line Summary
+
+// `readyState` tells us the current stage of an XMLHttpRequest request lifecycle.
+</script>
+</html>

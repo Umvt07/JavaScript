@@ -1,0 +1,225 @@
+// ================= FETCH + EVENT LOOP SHORT NOTES =================
+
+
+
+// ================================================================
+// 1. JavaScript is SINGLE THREADED
+// ================================================================
+
+// JS executes one thing at a time.
+
+// It has:
+// - Call Stack
+// - Memory Heap
+
+
+
+
+
+// ================================================================
+// 2. ASYNC TASKS
+// ================================================================
+
+// Some tasks take time:
+
+// - fetch()
+// - setTimeout()
+// - database calls
+// - file reading
+
+// JS does NOT handle them directly.
+
+
+// Browser Web APIs handle them.
+
+
+
+
+
+
+
+// ================================================================
+// 3. FETCH FLOW
+// ================================================================
+
+// fetch(url)
+
+// Step 1:
+// fetch enters Call Stack
+
+// Step 2:
+// Browser Web API starts network request
+
+// Step 3:
+// fetch immediately returns Promise
+
+// Initially:
+
+// Promise { <pending> }
+
+
+// Step 4:
+// When response arrives:
+
+// Promise becomes fulfilled/rejected
+
+
+
+
+
+
+
+// ================================================================
+// 4. PROMISE CALLBACKS
+// ================================================================
+
+// .then()
+// .catch()
+// await continuation
+
+// go into:
+
+// MICROTASK QUEUE
+
+
+
+
+
+
+
+// ================================================================
+// 5. setTimeout CALLBACKS
+// ================================================================
+
+// setTimeout callbacks go into:
+
+// TASK QUEUE (Callback Queue)
+
+
+
+
+
+
+
+// ================================================================
+// 6. EVENT LOOP
+// ================================================================
+
+// Event Loop continuously checks:
+
+// "Is Call Stack empty?"
+
+// If YES:
+// move tasks into Call Stack
+
+
+
+
+
+
+
+// ================================================================
+// 7. PRIORITY
+// ================================================================
+
+// Priority order:
+
+// 1. Microtask Queue
+// 2. Task Queue
+
+
+// So promises execute before setTimeout.
+
+
+
+
+
+
+
+// ================================================================
+// 8. IMPORTANT EXAMPLE
+// ================================================================
+
+console.log("A");
+
+setTimeout(()=>{
+
+    console.log("B");
+
+},0);
+
+Promise.resolve().then(()=>{
+
+    console.log("C");
+
+});
+
+console.log("D");
+
+
+
+
+// Output:
+
+// A
+// D
+// C
+// B
+
+
+// Because:
+
+// Promise.then -> Microtask Queue
+// setTimeout   -> Task Queue
+
+
+
+
+
+
+
+// ================================================================
+// 9. ASYNC AWAIT
+// ================================================================
+
+// async makes function return promise
+
+// await pauses ONLY that async function
+
+// NOT whole JavaScript
+
+
+
+
+
+
+
+// ================================================================
+// 10. IMPORTANT
+// ================================================================
+
+// fetch() RETURNS promise
+
+// response.json() ALSO returns promise
+
+
+// Therefore:
+
+const response = await fetch(url);
+
+const data = await response.json();
+
+
+
+
+
+
+
+// ================================================================
+// 11. HUGE CONCEPT
+// ================================================================
+
+// Browser handles async work
+// Promise tracks completion
+// Event Loop manages execution
+// Microtask Queue has higher priority

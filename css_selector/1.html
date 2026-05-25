@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            background-color: red;
+        }
+
+        /* now child selector? */
+        div > p{
+            background-color: brown;
+            color: red;
+        }
+
+        div p{
+            background-color: black;
+            color: red;
+        }
+
+        /* universal selector-> select everything */
+        * {
+            margin: 10px;
+            padding: 10px;
+        }
+        /* pseudo selector */
+        a:visited{
+            color:yellow
+        }
+        a:link{
+            color: green
+        }
+        a:active{
+            background: red;
+        }
+        /* decendent selector it select everything like every decendent of p
+        paragraph under the div tag */
+    </style>
+</head>
+<body>
+   <div>
+        i am a div
+        <p>
+            i am a parra inside a div
+        </p>
+   </div>
+   <a href="www.google.com">go to google</a>
+</body>
+</html>

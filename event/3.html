@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <h1>chai aur js</h1>
+        <button id="start">start</button>
+        <br>
+        <button id="stop">stop</button>
+</body>
+<script>
+    // const saydate=(e)=>{
+    //     console.log(e);
+    //     console.log(Date.now())
+    // }
+    // const arr=setInterval(saydate,1000,"hi");
+    // clearInterval(arr);
+    let arr;
+    document.querySelector('#start').addEventListener('click',()=>{
+        arr=setInterval(() => {
+            console.log("Adarsh");
+            console.log("You are special dude");
+        }, 1000);
+    })
+    document.querySelector('#stop').addEventListener('click',()=>{
+        clearInterval(arr);
+        console.log("yaa i got it adarsh is special")
+    })
+</script>
+</html>

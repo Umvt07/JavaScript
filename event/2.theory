@@ -1,0 +1,436 @@
+// JAVASCRIPT-> synchronous
+// JAVASCRIPT-> single thread-> slow but you would never found a single environment of js which makes it faster
+
+// default
+// execution context->execute one line of code at a time
+// console log-1
+// console.log 2
+each operation waits for the last one to complete before execution
+
+// two are there 
+call stack ,memory heap
+
+blocking code vs                   non blocking code
+block the flow                     doesnt block execution                         
+of program                         read file async
+read the file sync
+
+
+see the screenshot for Diagram
+
+# JavaScript Async Flow (Event Loop Architecture)
+
+## JavaScript Engine
+
+The JavaScript Engine mainly contains:
+
+1. Memory Heap
+2. Call Stack
+
+---
+
+# 1. Memory Heap
+
+Stores:
+- Variables
+- Objects
+- Arrays
+- Functions
+
+Example:
+
+```js
+let name = "Adarsh";
+let arr = [1,2,3];
+```
+
+These are stored in memory heap.
+
+---
+
+# 2. Call Stack
+
+The call stack executes functions one by one.
+
+Example:
+
+```js
+function one(){
+    two();
+}
+
+function two(){
+    console.log("Hello");
+}
+
+one();
+```
+
+Execution Stack:
+
+```txt
+Global()
+one()
+two()
+```
+
+After execution:
+
+```txt
+two() removed
+one() removed
+Global() removed
+```
+
+JavaScript is SINGLE THREADED.
+Only one thing executes at a time.
+
+---
+
+# Problem with Async Tasks
+
+Example:
+
+```js
+setTimeout(() => {
+    console.log("Hello");
+}, 2000);
+```
+
+If JS waits 2 seconds directly,
+the whole page would freeze.
+
+So JavaScript uses:
+
+# Web APIs
+
+---
+
+# Web APIs
+
+Provided by Browser.
+
+Examples:
+- DOM API
+- setTimeout
+- setInterval
+- fetch
+- geolocation
+
+These APIs handle async operations outside JS engine.
+
+---
+
+# setTimeout Flow
+
+Example:
+
+```js
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Timer Done");
+}, 2000);
+
+console.log("End");
+```
+
+---
+
+# Step-by-Step Execution
+
+## Step 1
+
+```txt
+Call Stack:
+Global()
+```
+
+---
+
+## Step 2
+
+```js
+console.log("Start");
+```
+
+Output:
+
+```txt
+Start
+```
+
+---
+
+## Step 3
+
+```js
+setTimeout(...)
+```
+
+- setTimeout enters stack
+- Browser registers timer in Web API
+- Callback waits there
+
+Callback:
+
+```js
+() => {
+   console.log("Timer Done");
+}
+```
+
+After registration:
+- setTimeout removed from stack
+
+---
+
+## Step 4
+
+```js
+console.log("End");
+```
+
+Output:
+
+```txt
+End
+```
+
+---
+
+## Step 5
+
+After 2 seconds:
+callback moves to:
+
+# Task Queue / Callback Queue
+
+---
+
+# Task Queue
+
+Stores callbacks from:
+- setTimeout
+- setInterval
+- DOM events
+
+Example Queue:
+
+```txt
+[CB1] [CB2] [CB3]
+```
+
+---
+
+# Event Loop
+
+The Event Loop continuously checks:
+
+```txt
+Is Call Stack Empty?
+```
+
+If YES:
+- Take callback from queue
+- Push into call stack
+
+Then callback executes.
+
+---
+
+# Final Output
+
+```txt
+Start
+End
+Timer Done
+```
+
+---
+
+# fetch() and Promises
+
+Promises use:
+
+# Microtask Queue
+
+NOT normal task queue.
+
+Example:
+
+```js
+fetch(url)
+.then(() => {
+    console.log("Fetched");
+});
+```
+
+The `.then()` callback goes into:
+
+```txt
+Microtask Queue
+```
+
+---
+
+# Microtask Queue
+
+Contains:
+- Promise callbacks
+- .then()
+- .catch()
+- queueMicrotask()
+
+This queue has HIGHER PRIORITY.
+
+---
+
+# Priority Rule
+
+Event Loop order:
+
+```txt
+1. Execute Call Stack
+2. Execute ALL Microtasks
+3. Execute Task Queue
+```
+
+---
+
+# Important Example
+
+```js
+setTimeout(() => {
+    console.log("Timeout");
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log("Promise");
+});
+
+console.log("Hello");
+```
+
+---
+
+# Execution
+
+## First Sync Code
+
+```txt
+Hello
+```
+
+---
+
+## Then Microtask Queue
+
+```txt
+Promise
+```
+
+---
+
+## Then Task Queue
+
+```txt
+Timeout
+```
+
+---
+
+# Final Output
+
+```txt
+Hello
+Promise
+Timeout
+```
+
+---
+
+# Complete Diagram
+
+```txt
+                     ┌─────────────────────┐
+                     │     JS ENGINE       │
+                     │                     │
+                     │  ┌──────────────┐   │
+                     │  │ Memory Heap  │   │
+                     │  └──────────────┘   │
+                     │                     │
+                     │  ┌──────────────┐   │
+                     │  │  Call Stack  │   │
+                     │  └──────────────┘   │
+                     └─────────┬───────────┘
+                               │
+                               ▼
+                    ┌────────────────────┐
+                    │      Web APIs      │
+                    │                    │
+                    │ setTimeout         │
+                    │ setInterval        │
+                    │ fetch()            │
+                    │ DOM API            │
+                    └─────────┬──────────┘
+                              │
+          ┌───────────────────┴───────────────────┐
+          ▼                                       ▼
+
+┌────────────────────┐              ┌────────────────────┐
+│  Microtask Queue   │              │     Task Queue     │
+│--------------------│              │--------------------│
+│ Promise callbacks  │              │ setTimeout CB      │
+│ .then()            │              │ setInterval CB     │
+│ .catch()           │              │ DOM Events         │
+└─────────┬──────────┘              └─────────┬──────────┘
+          │                                   │
+          └──────────────┬────────────────────┘
+                         ▼
+
+                ┌────────────────┐
+                │   Event Loop   │
+                └───────┬────────┘
+                        │
+                        ▼
+
+                ┌────────────────┐
+                │   Call Stack   │
+                └────────────────┘
+```
+
+---
+
+# Very Important Points
+
+## 1. JavaScript is Single Threaded
+
+Only one call stack.
+
+---
+
+## 2. Web APIs Handle Async Work
+
+Browser handles timers, fetch, events etc.
+
+---
+
+## 3. Event Loop
+
+Moves callbacks to stack when stack becomes empty.
+
+---
+
+## 4. Promise > setTimeout
+
+Promises always execute first because:
+Microtask Queue has higher priority.
+
+---
+
+# One-Line Summary
+
+JavaScript sends async operations to Web APIs,
+callbacks wait inside queues,
+and the Event Loop pushes them back to the Call Stack when it becomes empty.
