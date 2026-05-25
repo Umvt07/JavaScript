@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HATTTT</title>
+</head>
+<body style="background-color:black; color:white; ;">
+    <ul class="language">
+        <li>Javascript</li>
+    </ul>
+</body>
+    <script>
+        function addLann(langname){
+            const div=document.createElement('li');
+            const add=document.createTextNode(langname);
+            div.append(add);
+            return div;
+        }
+        document.querySelector('.language').appendChild(addLann("Hakk"));
+        
+        function addLan(langname){
+            const div=document.createElement('li');
+            const add=document.createTextNode(langname);
+            div.append(add);
+            document.querySelector('.language').appendChild(div);
+        }
+        addLan("Pythob")
+
+        function addoptilan(lanname){
+            const li=document.createElement('li');
+            li.appendChild(document.createTextNode(lanname));
+            document.querySelector('.language').appendChild(li);
+        }
+        addoptilan("golan")
+
+        // now edit the second one
+        const lxi=document.querySelector('li:nth-child(2)')
+        // lxi.innerHTML="peww";
+        // const newli=document.createTextNode('li');
+        // newli.textContent="HUIIII";
+        // lxi.replaceWith(newli);
+        // lxi.outerHTML="<li>hatt beh</li>"
+        //remove the last
+        const hxii=document.querySelector('li:last-child');
+        hxii.remove();
+    </script>
+</html>

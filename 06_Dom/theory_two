@@ -1,0 +1,473 @@
+# DOM SELECTORS, NodeList, HTMLCollection — COMPLETE NOTES
+
+These notes are written in simple English so they can be revised even after a long time.
+
+---
+
+# 1. What is DOM?
+
+DOM = Document Object Model.
+
+When a browser opens HTML, it converts that HTML into a tree-like structure.
+JavaScript can then access and change that structure.
+
+Example:
+- HTML gives the structure
+- DOM is the live version of that structure inside the browser
+- JavaScript uses DOM to read and change the page
+
+---
+
+# 2. Why do we need DOM selectors?
+
+DOM selectors are used to find HTML elements in the page.
+
+After finding an element, we can:
+- change text
+- change color
+- change background
+- add/remove classes
+- attach events
+- hide/show elements
+
+So selectors are the bridge between HTML and JavaScript.
+
+---
+
+# 3. Main DOM selector methods
+
+The most important ones are:
+
+- `document.querySelector()`
+- `document.querySelectorAll()`
+- `document.getElementById()`
+- `document.getElementsByClassName()`
+- `document.getElementsByTagName()`
+
+In this topic, the most important are:
+- `querySelector()`
+- `querySelectorAll()`
+- `getElementsByClassName()`
+- `getElementsByTagName()`
+
+---
+
+# 4. `querySelector()`
+
+## Meaning
+It selects the **first** matching element.
+
+## Syntax
+```js
+document.querySelector("selector")
+Example
+<p class="msg">Hello</p>
+<p class="msg">World</p>
+const el = document.querySelector(".msg");
+console.log(el);
+Result
+
+It selects only the first .msg.
+
+Important points
+Uses CSS selector syntax
+Can select by:
+tag: "li"
+class: ".box"
+id: "#title"
+attribute: "[type='text']"
+Use when
+
+Use it when you want only one element.
+
+5. querySelectorAll()
+Meaning
+
+It selects all matching elements.
+
+Syntax
+document.querySelectorAll("selector")
+Example
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+const items = document.querySelectorAll("li");
+console.log(items);
+Result
+
+It returns all <li> elements.
+
+Important points
+Returns a NodeList
+Usually used when you want to loop over many elements
+It is static
+this means if you add a new matching element later, the old result does not update automatically
+6. What is NodeList?
+
+NodeList is a collection of DOM nodes.
+
+It is not a real Array, but it behaves in a similar way.
+
+Example:
+
+const items = document.querySelectorAll("li");
+
+You can do:
+
+console.log(items[0]);
+console.log(items.length);
+Important facts about NodeList
+It has .length
+It supports index access like items[0]
+It can use forEach()
+It is often returned by querySelectorAll()
+Very important
+
+NodeList is usually static when returned by querySelectorAll().
+
+That means:
+
+If the page changes later, the NodeList does not automatically change
+7. What is HTMLCollection?
+
+HTMLCollection is also a collection of elements.
+
+It is array-like, but not a real Array.
+
+Example:
+
+const items = document.getElementsByClassName("box");
+Important facts about HTMLCollection
+It is array-like
+It has .length
+It supports index access
+It is usually live
+Live means:
+
+If elements are added or removed from the page, the collection updates automatically.
+
+8. Static vs Live collection
+
+This is one of the most important concepts.
+
+Static
+
+A static collection does not update automatically.
+
+Example:
+
+querySelectorAll() returns a static NodeList
+Live
+
+A live collection updates automatically when the DOM changes.
+
+Example:
+
+getElementsByClassName()
+getElementsByTagName()
+9. Difference between NodeList and HTMLCollection
+NodeList
+Usually returned by querySelectorAll()
+Can use forEach()
+Usually static
+HTMLCollection
+Usually returned by getElementsByClassName() and getElementsByTagName()
+Live collection
+Often converted to Array when needed
+10. getElementsByClassName()
+Meaning
+
+Selects all elements having a given class name.
+
+Example
+const boxes = document.getElementsByClassName("box");
+Important points
+Returns HTMLCollection
+Live collection
+Good for class-based selection
+Does not support all Array methods directly
+11. getElementsByTagName()
+Meaning
+
+Selects all elements of a given tag name.
+
+Example
+const lists = document.getElementsByTagName("li");
+Important points
+Returns HTMLCollection
+Live collection
+Selects by tag name
+12. Changing styles in JavaScript
+
+To change CSS using JavaScript, use:
+
+element.style.propertyName = "value";
+Example
+el.style.backgroundColor = "pink";
+el.style.color = "white";
+el.style.fontSize = "20px";
+Important
+
+Do NOT write:
+
+el.backgroundColor = "pink";
+
+That is wrong.
+
+Correct:
+
+el.style.backgroundColor = "pink";
+
+Because CSS properties are inside the style object.
+
+13. Example of styling one element
+<li>Hello</li>
+const item = document.querySelector("li");
+item.style.backgroundColor = "pink";
+
+This changes the background color of the first li.
+
+14. Example of styling many elements with forEach()
+<li>Apple</li>
+<li>Banana</li>
+<li>Mango</li>
+const items = document.querySelectorAll("li");
+
+items.forEach((item) => {
+  item.style.backgroundColor = "blue";
+});
+What happens?
+
+Every li gets blue background.
+
+15. Why forEach() works with NodeList
+
+querySelectorAll() returns a NodeList.
+
+NodeList supports forEach().
+
+That is why this works:
+
+items.forEach((item) => {
+  item.style.backgroundColor = "blue";
+});
+16. Why this common mistake fails
+
+Wrong:
+
+items.forEach((item) => {
+  item.backgroundColor = "blue";
+});
+
+Why wrong?
+Because backgroundColor is not a direct property of the element.
+
+Correct:
+
+items.forEach((item) => {
+  item.style.backgroundColor = "blue";
+});
+17. innerText, textContent, innerHTML
+
+These are very important for DOM work.
+
+innerText
+
+Shows visible text only.
+
+Example:
+
+el.innerText
+textContent
+
+Shows all text, including hidden text in many cases.
+
+Example:
+
+el.textContent
+innerHTML
+
+Gets or sets HTML inside the element.
+
+Example:
+
+el.innerHTML = "<b>Hello</b>";
+
+This inserts HTML tags inside the element.
+
+18. classList
+
+classList helps you work with classes.
+
+Example
+el.classList.add("active");
+el.classList.remove("active");
+el.classList.toggle("active");
+Why useful?
+
+Because adding/removing classes is better than writing all styles directly in JavaScript.
+
+19. Best practice: use classes for styling
+
+Instead of:
+
+el.style.backgroundColor = "pink";
+
+Better:
+
+el.classList.add("pink-bg");
+
+And in CSS:
+
+.pink-bg {
+  background-color: pink;
+}
+Why?
+Cleaner code
+Easier to maintain
+Better for large projects
+20. Common DOM selector examples
+Select by id
+document.querySelector("#title");
+Select by class
+document.querySelector(".box");
+Select first li
+document.querySelector("li");
+Select all li
+document.querySelectorAll("li");
+21. How to remember the selectors
+querySelector()
+Q = Quick one
+Gives first match
+querySelectorAll()
+All matches
+Gives a NodeList
+getElementsByClassName()
+Selects by class
+Gives HTMLCollection
+getElementsByTagName()
+Selects by tag
+Gives HTMLCollection
+22. Very important comparison table
+Method	Returns	First or All	Static or Live
+querySelector()	Element or null	First	N/A
+querySelectorAll()	NodeList	All	Static
+getElementsByClassName()	HTMLCollection	All	Live
+getElementsByTagName()	HTMLCollection	All	Live
+23. When to use what?
+Use querySelector()
+
+When you need only one element.
+
+Use querySelectorAll()
+
+When you need many elements and want to loop through them.
+
+Use getElementsByClassName()
+
+When you want all elements of a class and do not mind live collection behavior.
+
+Use getElementsByTagName()
+
+When you want all tags of a specific type.
+
+24. Common mistakes
+Mistake 1
+document.querySelectorAll("li").backgroundColor = "red";
+
+Why wrong?
+Because querySelectorAll() returns a collection, not one element.
+
+Correct:
+
+document.querySelectorAll("li").forEach((li) => {
+  li.style.backgroundColor = "red";
+});
+Mistake 2
+item.backgroundColor = "blue";
+
+Correct:
+
+item.style.backgroundColor = "blue";
+Mistake 3
+
+Using forEach() on HTMLCollection directly
+
+Sometimes HTMLCollection does not behave like a real Array.
+Use:
+
+Array.from(collection).forEach(...)
+
+Or use a loop.
+
+25. Convert HTMLCollection to Array
+const arr = Array.from(document.getElementsByClassName("box"));
+
+Now arr is a real Array.
+
+Then you can use:
+
+arr.forEach(...)
+arr.map(...)
+arr.filter(...)
+26. Real life analogy
+querySelector()
+
+One person from a crowd.
+
+querySelectorAll()
+
+All people in a crowd matching a rule.
+
+NodeList
+
+A list of selected people.
+
+HTMLCollection
+
+Another kind of list, but it updates automatically.
+
+27. Mini practice code
+<ul>
+  <li class="item">One</li>
+  <li class="item">Two</li>
+  <li class="item">Three</li>
+</ul>
+const items = document.querySelectorAll(".item");
+
+items.forEach((item) => {
+  item.style.backgroundColor = "yellow";
+  item.style.color = "black";
+});
+28. One-line revision summary
+DOM = browser’s live HTML tree
+Selectors = ways to find elements
+querySelector() = first match
+querySelectorAll() = all matches, NodeList, static
+getElementsByClassName() = HTMLCollection, live
+getElementsByTagName() = HTMLCollection, live
+style is used to change CSS
+classList is better for adding/removing classes
+forEach() works nicely with NodeList
+29. Final memory trick
+
+If you remember only this, it is enough for revision:
+
+querySelector      -> first element
+querySelectorAll   -> all elements, static NodeList
+getElementsByClassName -> live HTMLCollection
+getElementsByTagName   -> live HTMLCollection
+style               -> change CSS
+classList           -> manage classes
+30. What to revise again after months
+
+Revise these 6 things first:
+
+DOM meaning
+querySelector vs querySelectorAll
+NodeList vs HTMLCollection
+static vs live
+style vs classList
+forEach on NodeList
+
+If these 6 are clear, the whole chapter becomes easy.
