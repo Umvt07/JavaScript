@@ -1,0 +1,356 @@
+// ==========================================
+// CSS SELECTORS NOTES FOR JAVASCRIPT
+// ==========================================
+
+// querySelector()
+// -> returns FIRST matching element
+
+document.querySelector('selector')
+
+// querySelectorAll()
+// -> returns ALL matching elements
+// -> returns NodeList
+
+document.querySelectorAll('selector')
+
+
+
+// ==========================================
+// 1. TAG SELECTOR
+// ==========================================
+
+// Select first h1
+
+document.querySelector('h1')
+
+// HTML:
+// <h1>Hello</h1>
+
+
+
+// ==========================================
+// 2. CLASS SELECTOR
+// ==========================================
+
+// . means class
+
+document.querySelector('.heading')
+
+// HTML:
+// <h1 class="heading">Hello</h1>
+
+
+
+// ==========================================
+// 3. ID SELECTOR
+// ==========================================
+
+// # means id
+
+document.querySelector('#title')
+
+// HTML:
+// <h1 id="title">Hello</h1>
+
+
+
+// ==========================================
+// 4. DESCENDANT SELECTOR
+// ==========================================
+
+// Select li inside ul
+
+document.querySelector('ul li')
+
+// HTML:
+
+// <ul>
+//    <li>One</li>
+// </ul>
+
+
+
+// ==========================================
+// 5. DIRECT CHILD SELECTOR
+// ==========================================
+
+// > means direct child
+
+document.querySelector('ul > li')
+
+// HTML:
+
+// <ul>
+//    <li>YES</li>
+
+//    <div>
+//       <li>NO</li>
+//    </div>
+// </ul>
+
+// selects only first li
+
+
+
+// ==========================================
+// 6. MULTIPLE CLASSES
+// ==========================================
+
+// element having BOTH classes
+
+document.querySelector('.box.active')
+
+// HTML:
+// <div class="box active"></div>
+
+
+
+// ==========================================
+// 7. FIRST CHILD
+// ==========================================
+
+document.querySelector('li:first-child')
+
+
+
+// ==========================================
+// 8. LAST CHILD
+// ==========================================
+
+document.querySelector('li:last-child')
+
+
+
+// ==========================================
+// 9. NTH CHILD
+// ==========================================
+
+// second child
+
+document.querySelector('li:nth-child(2)')
+
+// HTML:
+
+// <ul>
+//    <li>One</li>
+//    <li>Two</li>
+//    <li>Three</li>
+// </ul>
+
+// selects "Two"
+
+
+
+// ==========================================
+// 10. ODD / EVEN
+// ==========================================
+
+document.querySelectorAll('li:nth-child(odd)')
+
+document.querySelectorAll('li:nth-child(even)')
+
+
+
+// ==========================================
+// 11. EVERY 3RD ELEMENT
+// ==========================================
+
+document.querySelectorAll('li:nth-child(3n)')
+
+
+
+// ==========================================
+// 12. ATTRIBUTE SELECTOR
+// ==========================================
+
+// any element having type attribute
+
+document.querySelector('[type]')
+
+
+
+// ==========================================
+// 13. ATTRIBUTE VALUE
+// ==========================================
+
+// exact attribute value
+
+document.querySelector('[type="text"]')
+
+// HTML:
+// <input type="text">
+
+
+
+// ==========================================
+// 14. COMBINING SELECTORS
+// ==========================================
+
+// li inside ul having class active
+
+document.querySelector('ul li.active')
+
+
+
+// ==========================================
+// 15. ADJACENT SIBLING
+// ==========================================
+
+// first p immediately after h1
+
+document.querySelector('h1 + p')
+
+
+
+// ==========================================
+// 16. GENERAL SIBLING
+// ==========================================
+
+// all p after h1
+
+document.querySelectorAll('h1 ~ p')
+
+
+
+// ==========================================
+// 17. querySelectorAll()
+// ==========================================
+
+// returns NodeList
+
+const items = document.querySelectorAll('li')
+
+console.log(items)
+
+
+
+// ==========================================
+// 18. NODELIST SUPPORTS forEach()
+// ==========================================
+
+items.forEach((item)=>{
+    console.log(item)
+})
+
+
+
+// ==========================================
+// 19. getElementsByClassName()
+// ==========================================
+
+// returns HTMLCollection
+
+const items2 = document.getElementsByClassName('box')
+
+
+
+// ==========================================
+// 20. HTMLCollection DOES NOT SUPPORT forEach()
+// ==========================================
+
+// ❌ ERROR
+
+items2.forEach((item)=>{
+    console.log(item)
+})
+
+
+
+// ==========================================
+// 21. CONVERT HTMLCollection TO ARRAY
+// ==========================================
+
+Array.from(items2).forEach((item)=>{
+    console.log(item)
+})
+
+
+
+// ==========================================
+// 22. CHANGE CONTENT
+// ==========================================
+
+element.innerHTML = "Hello"
+
+
+
+// ==========================================
+// 23. SAFE TEXT CHANGE
+// ==========================================
+
+element.textContent = "Hello"
+
+
+
+// ==========================================
+// 24. CHANGE FULL ELEMENT
+// ==========================================
+
+element.outerHTML = "<li>New</li>"
+
+
+
+// ==========================================
+// 25. REMOVE ELEMENT
+// ==========================================
+
+element.remove()
+
+
+
+// ==========================================
+// YOUR CODE EXPLAINED
+// ==========================================
+
+// select second li
+
+const lxi = document.querySelector('li:nth-child(2)')
+
+// change content
+
+lxi.innerHTML = "peww"
+
+// replace entire element
+
+lxi.outerHTML = "<li>hatt beh</li>"
+
+// select last li
+
+const hxii = document.querySelector('li:last-child')
+
+// remove it
+
+hxii.remove()
+
+
+
+// ==========================================
+// MOST IMPORTANT SELECTORS
+// ==========================================
+
+// .class
+// #id
+// tag
+// tag tag
+// tag > tag
+// :first-child
+// :last-child
+// :nth-child()
+// [attr]
+// [attr="value"]
+
+
+
+// ==========================================
+// GOLDEN RULE
+// ==========================================
+
+// Always imagine HTML tree structure.
+//
+// parent
+//   |
+// child
+//   |
+// grandchild
+//
+// CSS selectors are simply navigation tools.

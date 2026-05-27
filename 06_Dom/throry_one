@@ -4,6 +4,7 @@ console.log(window);
 console.log(window.document)// console.log(document) both are correct
 but to get all features of document
 console.dir(document);
+Executing console.dir(document); in your browser's developer console displays the document object as a hierarchical, interactive list of properties.Unlike console.log(document), which usually shows the HTML source code of the page (the "DOM tree"), console.dir() forces the browser to treat the element as a standard JavaScript object.
 
     do diagram
         Window

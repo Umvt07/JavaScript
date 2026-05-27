@@ -20,13 +20,13 @@
 </body>
 <script>
     // most of the event in js run sequentially 
-     // some exception in asynchornous programming
+    // some exception in asynchornous programming
     //  document.getElementById('owl').onclick=function(){
     //     alert("owl click");
     //  }
 
     // these approach are not good we should use eventListner as it gives us the ability of propogation
-     //attachEvent()
+    //attachEvent()
     // jQuery-on
 
     // what to study in event from this ocean
@@ -57,7 +57,7 @@
         console.log(e.target.parentNode);
         let removeit=e.target.parentNode;// so this is the way if we directly remove e.target then bullet point will stay
         console.log(e.target.tagName)
-        if(e.target.tagName=='IMG'){
+        if(e.target.tagName=='IMG'){// which html tag is being used
             removeit.remove();
         }
     },false)

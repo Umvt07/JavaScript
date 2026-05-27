@@ -240,6 +240,21 @@ What happens?
 
 Every li gets blue background.
 
+
+document.querySelectorAll()
+
+returns a NodeList.
+
+While:
+
+document.getElementsByClassName()
+document.getElementsByTagName()
+
+return HTMLCollection.
+for each works on nodelist but not on html collection to work convert this into array
+array.from(htmlcollectons).forEach(()=>{
+
+})
 15. Why forEach() works with NodeList
 
 querySelectorAll() returns a NodeList.
@@ -326,6 +341,7 @@ Why?
 Cleaner code
 Easier to maintain
 Better for large projects
+
 20. Common DOM selector examples
 Select by id
 document.querySelector("#title");
