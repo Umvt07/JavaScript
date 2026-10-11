@@ -41,7 +41,7 @@ let a = 300
 if (true) {
     let a = 10
     const b = 20
-    // console.log("INNER: ", a);
+    console.log("INNER: ", a);
     
 }
 
@@ -93,3 +93,17 @@ addTwo(5)// cant be accessed like this when function is decleared like this
 const addTwo = function(num){
     return num + 2
 }
+addTwwo(5)// cant be accessed like this when function is decleared like this
+var addTwwo = function(num){
+    return num + 2
+}
+
+// see in the first case js make the function available
+// before the declearation so it would work absolutely fine
+// but in second case js wont let u to access the variable 
+// without initialization so it will cause refrence error
+// and i thrid assingment of b will happen after the addtwwo function
+// so we can access addTwo but there is no assingment so it will give type
+// error as addTwwo is undefined till now
+
+// this is called hoisting

@@ -3,8 +3,8 @@ const tinderuser={};
 tinderuser.id="123abc";
 tinderuser.name="sammy";
 tinderuser.isloggedin=false;
-
-// console.log(tinderuser);
+tinderuser.email="HELLO@!@#.com"
+//console.log(tinderuser);
 const obj2={
     email: "sharmaadarsh10534",
     fullname:{
@@ -58,7 +58,7 @@ console.log(tinderuser.hasOwnProperty('isLoggedin'));
 
 
 // 1. Access object property
-console.log(tinderUser.email);
+console.log(tinderuser.email);
 
 // Output:
 // "abc@gmail.com"
@@ -67,7 +67,7 @@ console.log(tinderUser.email);
 // 2. Object.keys(obj)
 // Returns all keys of object in array form
 
-console.log(Object.keys(tinderUser));
+console.log(Object.keys(tinderuser));
 
 // Output:
 // ["id", "name", "email", "isLoggedIn"]
@@ -76,7 +76,7 @@ console.log(Object.keys(tinderUser));
 // 3. Object.values(obj)
 // Returns all values of object in array form
 
-console.log(Object.values(tinderUser));
+console.log(Object.values(tinderuser));
 
 // Output:
 // [1, "Adarsh", "abc@gmail.com", false]
@@ -85,7 +85,7 @@ console.log(Object.values(tinderUser));
 // 4. Object.entries(obj)
 // Converts object into array of [key, value] pairs
 
-console.log(Object.entries(tinderUser));
+console.log(Object.entries(tinderuser));
 
 // Output:
 // [
@@ -99,8 +99,8 @@ console.log(Object.entries(tinderUser));
 // 5. hasOwnProperty(key)
 // Checks whether object contains that property or not
 
-console.log(tinderUser.hasOwnProperty("isLoggedIn")); // true
-console.log(tinderUser.hasOwnProperty("age")); // false
+console.log(tinderuser.hasOwnProperty("isLoggedIn")); // true
+console.log(tinderuser.hasOwnProperty("age")); // false
 
 
 // Quick memory trick:

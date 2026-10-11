@@ -17,6 +17,8 @@ let var5=var4
 var5.name="Sharma"
 console.log(var4.name)
 console.log(var5.name)
-
+// basically primitive data types values are copied like string number
+// null bigInt but for arrays,objects,functions they arent
+// refrence value is being passed
 // see here both are changed as they are pass by refrence as copy isnt getting share
 // actual data is getting shared

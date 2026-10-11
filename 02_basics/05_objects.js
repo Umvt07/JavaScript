@@ -115,7 +115,7 @@ const { name } = user;
 
 // Rename:
 const { name: myName } = user;
-
+// console.log({name,myName});
 
 // ==========================================
 // SUMMARY

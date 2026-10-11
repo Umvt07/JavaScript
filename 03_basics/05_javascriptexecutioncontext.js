@@ -81,19 +81,19 @@ console.log(addtwo(t1,t2))
 // EXAMPLE
 // -----------------------------------------------------------------------------
 
-console.log("Adarsh");
+// console.log("Adarsh");
 
-let a = 10;
-let b = 20;
+// let a = 10;
+// let b = 20;
 
-function addTwo(num1, num2){
-    return num1 + num2;
-}
+// function addTwo(num1, num2){
+//     return num1 + num2;
+// }
 
-let t1 = 10;
-let t2 = 20;
+// let t1 = 10;
+// let t2 = 20;
 
-console.log(addTwo(t1, t2));
+// console.log(addTwo(t1, t2));
 
 
 // ============================================================================

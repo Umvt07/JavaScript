@@ -8,7 +8,7 @@ const arr3=arr1.concat(arr2);
 // so both the array will get concatenate
 
 // so now spread operator 
-const arr4=[...arr1,...arr2];
+const arr4=[23,...arr1,...arr2]; // prints the 23,arr1 things and arr2 things
 // console.log(arr4);
 
 // flat of array

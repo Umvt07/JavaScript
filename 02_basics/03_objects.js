@@ -1,9 +1,9 @@
-// singleton construction of object via constructor is called singleton
-// const obj2=Object.create();
-// this above is called singleton
+//Singleton: Ensures that only one instance is created and reused.
 
+// const obj2=Object.create();
 // object literals
 const sym=Symbol("Key1");
+// symbol is used to create id for unique objects
 const obj1={
     name: "Adarsh",
     [sym]:"My key 1", // without [] it is behaiving like a string not symbol
@@ -20,7 +20,9 @@ const obj1={
 // console.log(obj1[sym]);  // and here also sym in [] brackets because else it will get converted into string which is wrong
 
 // obj1["email"]="Hehe"
-// console.log(obj1.email);
+//  console.log(obj1.email);
+ // email will get changed instead we have decleared it with const because we are changing object property
+ // not reassigning it to another object 
 
 // you can lock the value by freeze button 
 // Object.freeze(obj1);
@@ -36,4 +38,9 @@ obj1.greetingtwo=function(){
 }
 // console.log(obj1.greeting);// function refrence 
 console.log(obj1.greeting());
+// here extra undefined is getting printed because your function print and dont return anything see there are two
+// consoled so one is sufficient so other is printing undefined
 console.log(obj1.greetingtwo());
+obj1.greeting();
+obj1.greetingtwo();
+// here see its working fine

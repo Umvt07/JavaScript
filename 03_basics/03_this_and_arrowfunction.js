@@ -29,6 +29,10 @@ const Adarsh= ()=>{
     console.log(this); // so output of this function is different than normal function
 }
 Adarsh();
+// A normal function has its own this, determined by how the function is called.
+// An arrow function inherits this from the surrounding scope.
+// so as we talked when we run this exact program in console this will print the global thing
+// This is called lexical this.
 
 // const addtwo=(num1,num2)=>{
 //     return num1+num2
@@ -41,5 +45,7 @@ const addtwo=(num1,num2)=>(num1+num2) // in this we write in the same line and a
 // curly bracket use karenge toh return you have to write warna uske bina chal jayega with and without parenthiesis
 // and jab object return kar rhe toh you have to write it with parenthesis tab hi return hoga else undefined
 // see how we return object in arrow functions outside parenthesis is necessary
-const addthree=(num1,num2)=>({username:"Adarsh"})
+const addthree=(num1,num2)=>({username:"Adarsh"}) // without return 
+const addthreee=(num1,num2)=>{return {username:"Adarsh"}}
 console.log(addthree(4,3));
+console.log(addthreee(4,3));
