@@ -69,6 +69,16 @@ const myNewArray = [200, 400, 100, 600]
 function returnSecondValue(getArray){
     return getArray[1]
 }
+function display(a,b,arithimaticOperator){
+    const result=arithimaticOperator(a,b);
+    console.log(result);
+}
+function sum(a,b){
+    return a+b;
+}
+// we can also call another function inside a function
 
+// so lets see the exact syntax
+display(5,3,sum);
 // console.log(returnSecondValue(myNewArray));
 console.log(returnSecondValue([200, 400, 500, 1000]));
